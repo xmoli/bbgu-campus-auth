@@ -1,9 +1,11 @@
-const config = require('./extra.json')
 const fs = require('fs')
+const path = require('path')
 
 const trans = () => {
-    let input = fs.readFileSync('./config.txt')
-    let userInfo = JSON.parse(input)
+    let conf_path = path.resolve(__dirname,'../config.json')
+    console.log(conf_path)
+    let input = fs.readFileSync(conf_path)
+    let config = JSON.parse(input)
     const isp = (str) => {
         switch (str) {
             case '中国电信':
@@ -16,8 +18,8 @@ const trans = () => {
                 return ''
         }
     }
-    config.body.DDDDD = ',0,' + userInfo.username + isp(userInfo.ISP)
-    config.body.upass = userInfo.password
+    config.body.DDDDD = ',0,' + config.username + isp(config.ISP)
+    config.body.upass = config.password
     return config
 }
 

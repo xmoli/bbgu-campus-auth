@@ -5,7 +5,6 @@ const qs = require('querystring')
 const trans = require('./trans')
 const find_ip = require('./find_ip')
 const ok = require('./ok');
-const fs= require('fs');
 
 const config = trans()
 
@@ -17,19 +16,23 @@ http.get("http://" + config.prams.hostname + "/a70.htm", (res) => {
         rawData += chunk;
     })
     res.on('end', () => {
-        const ip = find_ip(rawData)
+        let ip = ''
+        try{
+            const ip = find_ip(rawData)
+        }catch{
+            console.log("返回内容有误！")
+            return
+        }
         config.prams.wlanuserip = ip
         config.prams.ip = ip
         config.options.path += qs.encode(config.prams)
         config.options.headers = config.headers
-    })
-    res.on('close', ()=> {
         let ob = {
             options: config.options,
             body: config.body
         }
         login(ob)
-        fs.writeFileSync('./ip.json',JSON.stringify(ob,null,'\t'))
+        return
     })
 }).on('error', (e) => {
     console.log(e.message)
