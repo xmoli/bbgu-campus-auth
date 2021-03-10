@@ -27,3 +27,9 @@ npm run start
 ```
 
 或者运行用node运行main.js
+
+## 高级
+
+* linux使用cron。
+* windows用计算机管理->系统工具->任务计划程序库。
+在每天早上启动一次，就不用手动登录了。
