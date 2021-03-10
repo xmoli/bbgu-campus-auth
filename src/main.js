@@ -9,7 +9,7 @@ const ok = require('./ok');
 const config = trans()
 
 /*get ip */
-http.get("http://" + config.prams.hostname + "/a70.htm", (res) => {
+http.get("http://" + config.prams.hostname, (res) => {
     res.setEncoding('utf8');
     let rawData = '';
     res.on('data', (chunk) => {
